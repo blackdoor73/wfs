@@ -1,12 +1,8 @@
 package com.sakhi.robot.revenue;
 
-import org.hibernate.Session;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
-import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
-import org.hibernate.cfg.Configuration;
 import com.sakhi.calc.revenue.CommissionCalculator;
 
 public class WfsRfKwLib {
@@ -21,10 +17,10 @@ public class WfsRfKwLib {
 		} catch (Exception e) {}
 	}
 
-	public double GetComissionIndividual(String client, String month) {
+	public double GetComissionIndividual( String regmonth,String member) {
 		double commision;
 		mCalc.calculate();
-		commision = mCalc.getCommision(client, month);
+		commision = mCalc.getCommision(member, regmonth);
 
 		return commision;
 	}
