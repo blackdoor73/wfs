@@ -1,5 +1,4 @@
 package com.sakhi.calc.revenue;
-
 import java.util.*;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -47,13 +46,13 @@ class ClientRegistration {
 
 }
 
-class Commisson {
+class Commision {
 	private String member;
 	private String month;
 	private double value;
 	private int count;
 
-	Commisson(String member, String month, double value) {
+	Commision(String member, String month, double value) {
 		this.member = member;
 		this.month = month;
 		this.value = value;
@@ -98,31 +97,28 @@ class Commisson {
 
 public class CommissionCalculator {
 	ArrayList<ClientRegistration> clientList = new ArrayList<ClientRegistration>();
-	HashMap<String, Commisson> commisionList = new HashMap<>();
+	HashMap<String, Commision> commisionList = new HashMap<>();
 
 	public double CommissionCalc() {
 		return 100;
 	}
 
-	public double estimatecommission() {
-		double rounded = ((CommissionCalc() + 99) / 100) * 100;
-		return rounded;
+	public double estimatecommission(double value) {
+		return (double)(Math.floor((value+99) / 100) * 100);
 	}
 
 	public void calculate() {
-		System.out.println( clientList.size());
+//		System.out.println(clientList.size());
 		String memberkey;
 		double 	comValue =0;
-
-
-		for (int i = 0; i < clientList.size() - 1; i++) {
+		for (int i = 0; i < clientList.size(); i++) {    //CHECK LATER
 			ClientRegistration clientRecord = clientList.get(i);
 			String member = clientRecord.getMember();
 			double value = clientRecord.getValue();
 			String regMonth = clientRecord.getMonth();
 
 			memberkey = member + regMonth;
-			Commisson commisionRec = commisionList.get(memberkey);
+			Commision commisionRec = commisionList.get(memberkey);
 			if (commisionRec != null) {
 				double commPct = 10;
 				if (commisionRec.getCount() == 1) {
@@ -130,9 +126,10 @@ public class CommissionCalculator {
 				}
 				 comValue = value * commPct / 100;
 				commisionRec.addCommission(comValue);
+				commisionList.put(memberkey, commisionRec);
 			} else {
 				 comValue = value * 5 / 100;
-				commisionRec = new Commisson(member, regMonth, comValue);
+				commisionRec = new Commision(member, regMonth, comValue);
 				commisionList.put(memberkey, commisionRec);
 			}
 			
@@ -145,7 +142,7 @@ public class CommissionCalculator {
 		memberkey = member + regMonth;
 		double comValue = 0;
 
-		Commisson commisionRec = commisionList.get(memberkey);
+		Commision commisionRec = commisionList.get(memberkey);
 		if (commisionRec != null) {
 			comValue = commisionRec.getValue();
 		}
@@ -155,12 +152,16 @@ public class CommissionCalculator {
 //		String regMonth1 = clientRecord.getMonth();
 //
 //		String memberkey1 = member1 + regMonth1;
-
-		return clientList.size();
+		return estimatecommission(Math.ceil(comValue));
+//		return comValue;
 	}
 
 	public void RegisterNewClient(Date date, String member, String client, double value) {
 		ClientRegistration obj = new ClientRegistration(date, member, client, value);
 		clientList.add(obj);
+	}
+	
+	public String GetContext() {
+		return "" + clientList.size();
 	}
 }

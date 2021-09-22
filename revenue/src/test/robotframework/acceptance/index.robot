@@ -5,7 +5,7 @@ Library           OperatingSystem
 
 
 *** Variables ***
-${MESSAGE}        Hello, world!
+${MESSAGE}        Hello, world2!
 
 *** Test Cases ***
 Comision for first client to be calculated at 5%
@@ -13,8 +13,10 @@ Comision for first client to be calculated at 5%
     Log    ${MESSAGE}
     Start New Session
     Register New Client	2021-06-12	m1	20000
+    ${value}=	Get Context
+	Log	${Value}
     ${comission}=	Get Comission Individual	2021-06	m1
-    Should Be Equal	${comission}	1000
+    Should Be True	${comission}==1000
 *** Test Cases ***
 Commision for 2nd client to be calculated at 7%
     [Documentation]    Example test.
@@ -22,8 +24,10 @@ Commision for 2nd client to be calculated at 7%
     Start New Session
     Register New Client	2021-06-12	m1	20000
 	Register New Client	2021-06-15	m1	20000
-    ${comission}=	Get Comission Individual	June 2021	m1
-    Should Be Equal	${comission}	2400    
+	${value}=	Get Context
+	Log	${Value}
+    ${comission}=	Get Comission Individual	2021-06	m1
+    Should Be True	${comission}==2400    
 *** Test Cases ***
 Commision for 3nd client to be calculated at 10%
     [Documentation]    Example test.
@@ -32,8 +36,8 @@ Commision for 3nd client to be calculated at 10%
     Register New Client	2021-06-12	m1	20000
 	Register New Client	2021-06-15	m1	20000
 	Register New Client	2021-06-15	m1	15000
-    ${comission}=	Get Comission Individual	June 2021	m1
-    Should Be Equal	${comission}	3900    
+    ${comission}=	Get Comission Individual	2021-06	m1
+    Should Be True	${comission}==3900    
 *** Test Cases ***
 Commision for 4th client to be calculated at 10%
     [Documentation]    Example test.
@@ -43,8 +47,8 @@ Commision for 4th client to be calculated at 10%
 	Register New Client	2021-06-15	m1	20000
 	Register New Client	2021-06-15	m1	15000
 	Register New Client	2021-06-15	m1	15000
-    ${comission}=	Get Comission Individual	June 2021	m1
-    Should Be Equal	${comission}	5400    
+    ${comission}=	Get Comission Individual	2021-06	m1
+    Should Be True	${comission}==5400    
 *** Test Cases ***
 Total commision for a month rounded off to upper 100
     [Documentation]    Example test.
@@ -52,8 +56,8 @@ Total commision for a month rounded off to upper 100
     Start New Session
     Register New Client	2021-06-12	m1	18025
 	Register New Client	2021-06-15	m1	15999
-    ${comission}=	Get Comission Individual	June 2021	m1
-    Should Be Equal	${comission}	2100    
+    ${comission}=	Get Comission Individual	2021-06	m1
+    Should Be True	${comission}==2100    
 *** Test Cases ***
 Commision rate to be reset after every month
     [Documentation]    Example test.
@@ -61,7 +65,7 @@ Commision rate to be reset after every month
     Register New Client	2021-06-12	m1	20000
 	Register New Client	2021-06-15	m1	20000
 	Register New Client	2021-07-15	m1	15000
-    ${comission}=	Get Comission Individual	June 2021	m1
-    Should Be Equal	${comission}	2100
-    ${comission}=	Get Comission Individual	July 2021	m1
-    Should Be Equal	${comission}	800
+    ${comission}=	Get Comission Individual	2021-06	m1
+    Should Be True	${comission}==2400
+    ${comission}=	Get Comission Individual	2021-07	m1
+    Should Be True	${comission}==800

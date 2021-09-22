@@ -1,5 +1,4 @@
 package com.sakhi.robot.revenue;
-
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -28,4 +27,12 @@ public class WfsRfKwLib {
 	public void StartNewSession() {
 		this.mCalc = new CommissionCalculator();
 	}
+	
+	public String GetContext(){
+//		mCalc.GetContext;
+		return mCalc.GetContext();
+	}
 }
+
+
+
