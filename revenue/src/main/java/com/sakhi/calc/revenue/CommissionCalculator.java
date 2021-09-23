@@ -97,21 +97,18 @@ class Commision {
 
 public class CommissionCalculator {
 	ArrayList<ClientRegistration> clientList = new ArrayList<ClientRegistration>();
-	HashMap<String, Commision> commisionList = new HashMap<>();
+	HashMap<String, Commision> commisionList ;
 
-	public double CommissionCalc() {
-		return 100;
-	}
-
-	public double estimatecommission(double value) {
+	private double estimatecommission(double value) {
 		return (double)(Math.floor((value+99) / 100) * 100);
 	}
 
-	public void calculate() {
-//		System.out.println(clientList.size());
+	private void calculate() {
+
+		commisionList = new HashMap<>();
 		String memberkey;
 		double 	comValue =0;
-		for (int i = 0; i < clientList.size(); i++) {    //CHECK LATER
+		for (int i = 0; i < clientList.size(); i++) {    
 			ClientRegistration clientRecord = clientList.get(i);
 			String member = clientRecord.getMember();
 			double value = clientRecord.getValue();
@@ -146,19 +143,15 @@ public class CommissionCalculator {
 		if (commisionRec != null) {
 			comValue = commisionRec.getValue();
 		}
-//		ClientRegistration clientRecord = clientList.get(0);
-//		String member1 = clientRecord.getMember();
-//		double value = clientRecord.getValue();
-//		String regMonth1 = clientRecord.getMonth();
-//
-//		String memberkey1 = member1 + regMonth1;
-		return estimatecommission(Math.ceil(comValue));
-//		return comValue;
+
+		return this.estimatecommission(Math.ceil(comValue));
+
 	}
 
 	public void RegisterNewClient(Date date, String member, String client, double value) {
 		ClientRegistration obj = new ClientRegistration(date, member, client, value);
 		clientList.add(obj);
+		this.calculate();
 	}
 	
 	public String GetContext() {

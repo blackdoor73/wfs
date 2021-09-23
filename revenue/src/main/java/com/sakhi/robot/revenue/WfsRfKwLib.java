@@ -18,7 +18,6 @@ public class WfsRfKwLib {
 
 	public double GetComissionIndividual( String regmonth,String member) {
 		double commision;
-		mCalc.calculate();
 		commision = mCalc.getCommision(member, regmonth);
 
 		return commision;
@@ -29,7 +28,7 @@ public class WfsRfKwLib {
 	}
 	
 	public String GetContext(){
-//		mCalc.GetContext;
+
 		return mCalc.GetContext();
 	}
 }
